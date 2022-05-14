@@ -150,6 +150,12 @@ class Api extends BaseController
                 $request = $this->request->only($request_field);
                 break;
         }
+        $request_field = ApiRequestModel::where('api_id', $this->api_id)->column('default,desc,is_must', 'field');
+        foreach ($request_field as $k=>$v){
+            if($v['is_must'] == 1 && $request[$k] == ''){
+                throw new ParamException($v['desc'] . '参数不能为空');
+            }
+        }
 
         try {
             $result = call_user_func_array($function . '::index', [$api_info, $request, $config]);

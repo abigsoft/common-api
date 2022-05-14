@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ab8dae5b-841c-42b1-ac02-b82a75be320a" name="变更" comment="增加演示站">
+    <list default="true" id="ab8dae5b-841c-42b1-ac02-b82a75be320a" name="变更" comment="修复接口配置模块">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/admin/controller/api/Config.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/admin/controller/api/Config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/admin/controller/api/Index.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/admin/controller/api/Index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/admin/view/api/config/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/admin/view/api/config/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/admin/view/api/config/update.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/admin/view/api/config/update.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/admin/view/api/index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/admin/view/api/index/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/api/controller/Api.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/controller/Api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -129,7 +124,7 @@
       <option name="presentableId" value="Default" />
       <updated>1652496019461</updated>
       <workItem from="1652496022402" duration="388000" />
-      <workItem from="1652496446768" duration="6571000" />
+      <workItem from="1652496446768" duration="7267000" />
     </task>
     <task id="LOCAL-00001" summary="因为腾讯云的包过大，所以直接取消腾讯云的短信接口，对项目无影响">
       <created>1652496576135</created>
@@ -180,7 +175,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652500769597</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="修复接口配置模块">
+      <created>1652510760168</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1652510760168</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,6 +204,7 @@
     <MESSAGE value="压缩包的体积" />
     <MESSAGE value="删除个人信息" />
     <MESSAGE value="增加演示站" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加演示站" />
+    <MESSAGE value="修复接口配置模块" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复接口配置模块" />
   </component>
 </project>
