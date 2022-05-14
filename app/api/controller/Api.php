@@ -167,6 +167,7 @@ class Api extends BaseController
             return json($result);
         } catch (\Exception $e) {
             LogService::ban($this->api_id, $this->member_id, $this->project_id, $this->ip, $request, $e->getMessage());
+            throw new ParamException($e->getMessage());
         }
     }
 

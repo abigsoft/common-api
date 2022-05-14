@@ -29,3 +29,13 @@ function checkSign($param, $secret, $sign): bool
     $str .= 'secret=' . $secret;
     return md5($str) == $sign;
 }
+
+function GetBetween($content, $start, $end)
+{
+    $r = explode($start, $content);
+    if (isset($r[1])) {
+        $r = explode($end, $r[1]);
+        return $r[0];
+    }
+    return $content;
+}

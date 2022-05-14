@@ -40,7 +40,8 @@
         "alibabacloud/dysmsapi-20170525": "^2.0",
         "phpmailer/phpmailer": "^6.6",
         "topthink/think-template": "^2.0",
-        "topthink/think-trace": "^1.4"
+        "topthink/think-trace": "^1.4",
+      "ext-simplexml": "*"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2"
