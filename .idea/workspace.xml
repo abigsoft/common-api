@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ab8dae5b-841c-42b1-ac02-b82a75be320a" name="变更" comment="压缩包的体积">
+    <list default="true" id="ab8dae5b-841c-42b1-ac02-b82a75be320a" name="变更" comment="删除个人信息">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
@@ -122,7 +122,7 @@
       <option name="presentableId" value="Default" />
       <updated>1652496019461</updated>
       <workItem from="1652496022402" duration="388000" />
-      <workItem from="1652496446768" duration="1979000" />
+      <workItem from="1652496446768" duration="2265000" />
     </task>
     <task id="LOCAL-00001" summary="因为腾讯云的包过大，所以直接取消腾讯云的短信接口，对项目无影响">
       <created>1652496576135</created>
@@ -138,7 +138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652496975606</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="删除个人信息">
+      <created>1652499268779</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1652499268779</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -158,6 +165,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="因为腾讯云的包过大，所以直接取消腾讯云的短信接口，对项目无影响" />
     <MESSAGE value="压缩包的体积" />
-    <option name="LAST_COMMIT_MESSAGE" value="压缩包的体积" />
+    <MESSAGE value="删除个人信息" />
+    <option name="LAST_COMMIT_MESSAGE" value="删除个人信息" />
   </component>
 </project>
