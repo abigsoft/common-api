@@ -18,8 +18,8 @@
                         <label class="col-sm-3 control-label">调用类型：</label>
                         <div class="col-sm-7">
                             <select class="form-control chosen" id="type">
-                                <option value="Array" selected>Array</option>
-                                <option value="Object" {if $info.type == 'Object'} selected {/if}>Object</option>
+                                <option value="a" selected>Array</option>
+                                <option value="o" {if $info.type == 'o'} selected {/if}>Object</option>
                             </select>
                             <span class="help-block m-b-none">Array方式取值为数组，Object方式取值为对象</span>
                         </div>

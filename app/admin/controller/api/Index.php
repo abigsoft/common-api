@@ -183,6 +183,6 @@ class Index extends Base
         }catch(\Exception $e){
             $this->error($e->getMessage());
         }
-        return $this->ajaxReturn($this->successCode,'生成成功');
+        return $this->ajaxReturn($this->successCode,'生成成功,入口位置:app/api/service/ ' . $info['ext'] .' /ApiService.php');
     }
 }

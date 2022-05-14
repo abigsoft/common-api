@@ -83,7 +83,7 @@ class Config extends Base
             return view('update');
         } else {
             $data = $this->request->only([
-                'type' => 'Array',
+                'type' => 'a',
                 'title' => '',
                 'name' => '',
                 'data' => '',

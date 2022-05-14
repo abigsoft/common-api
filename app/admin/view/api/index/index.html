@@ -225,7 +225,7 @@
             com.confirm("是否对选择的接口进行生成入口？该操作会覆盖之前生成的入口文件", function () {
                 var ajax = new $ax("{:url('build')}", function (res) {
                     if (res.status === 200) {
-                        com.success(res.msg, 1000);
+                        com.success(res.msg, 5000);
                         TableList.table.refresh();
                     } else {
                         com.error(res.msg, 1000);

@@ -68,7 +68,7 @@
             {title: '排序', field: 'id', visible: true, align: 'center', valign: 'middle',formatter: TableList.arrowFormatter},
             {title: '编号', field: 'id', visible: true, align: 'center', valign: 'middle'},
             {title: '标题',field: 'title',visible: true,align: 'center',valign: 'middle'},
-            {title: '取值类型',field: 'type',visible: true,align: 'center',valign: 'middle'},
+            {title: '取值类型',field: 'type',visible: true,align: 'center',valign: 'middle',formatter: TableList.typeFormatter},
             {title: '调用名称', field: 'name', visible: true, align: 'center', valign: 'middle'},
             {title: '参数值', field: 'data', visible: true, align: 'center', valign: 'middle'},
             {title: '排序', field: 'sort', visible: true, align: 'center', valign: 'middle'},
@@ -105,6 +105,13 @@
 
     TableList.statusFormatter = function (value, row, index) {
         return listCom.switchBtn(row.id, 'status', value === 1 ? 0 : 1, "{:url('status')}");
+    }
+
+    TableList.typeFormatter = function (value, row, index) {
+        return listCom.formatStr(value,[
+            {key:'a',val:'数组'},
+            {key:'o',val:'对象'},
+        ]);
     }
 
     TableList.formParams = function () {

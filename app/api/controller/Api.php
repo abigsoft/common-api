@@ -119,7 +119,7 @@ class Api extends BaseController
         $function = '\\app\\api\\service\\' . $type . '\\ApiService';
         //取配置参数
         $config_array = [];
-        $config_array_data = ApiConfigModel::where('type', 'Array')
+        $config_array_data = ApiConfigModel::where('type', 'a')
             ->where('api_id', $this->api_id)
             ->where('status', 1)
             ->order('sort asc')
@@ -130,7 +130,7 @@ class Api extends BaseController
 
         $config = [
             'array' => $config_array,
-            'object' => ApiConfigModel::where('type', 'Object')
+            'object' => ApiConfigModel::where('type', 'o')
                 ->where('api_id', $this->api_id)
                 ->where('status', 1)
                 ->order('sort asc')
