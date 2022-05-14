@@ -43,15 +43,20 @@ class Callback extends Base
         $param = input('param.');
         $res = LoginService::callback($param['code']);
         if(isset($res['code']) && $res['code']==0){
-            MemberModel::where($res['type'].'_id',$res['social_uid'])->update([
-                $res['type'].'_id'=>'',
-            ]);
+            $check = MemberModel::where($res['type'].'_id',$res['social_uid'])->count();
+            if($check){
+                $this->error('该第三方已绑定其他用户，请先解绑后操作');
+                /**
+                MemberModel::where($res['type'].'_id',$res['social_uid'])->update([
+                    $res['type'].'_id'=>'',
+                ]);**/
+            }
             $data[$res['type'].'_id'] = $res['social_uid'];
-            $res2 = MemberModel::where('id',session('member_id'))->update($data);
-            $this->redirect('/user/index/index');
+            MemberModel::where('id',session('member_id'))->update($data);
+            die('<script type="text/javascript">top.parent.frames.location.href="'.url('/user/index/index').'";</script>');
         }
         else{
-            $this->redirect('/user/index/index');
+            die('<script type="text/javascript">top.parent.frames.location.href="'.url('/user/index/index').'";</script>');
         }
     }
 
@@ -84,14 +89,17 @@ class Callback extends Base
                     'pay_time'=>formatDate(),
                 ]);
                 OrderService::realOrder($order['id']);
+                die('<script type="text/javascript">top.parent.frames.location.href="'.url('/user/index/index').'";</script>');
                 $this->redirect('/user/index/index');
             }
             else {
+                die('<script type="text/javascript">top.parent.frames.location.href="'.url('/user/index/index').'";</script>');
                 $this->redirect('/user/index/index');
             }
 
         }
         else {
+            die('<script type="text/javascript">top.parent.frames.location.href="'.url('/user/index/index').'";</script>');
             $this->redirect('/user/index/index');
         }
     }
