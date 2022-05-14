@@ -188,38 +188,32 @@ CREATE TABLE `config`  (
 -- ----------------------------
 INSERT INTO `config` VALUES (0, 'password', 'password', '1f9beffd268a6058819264e391fc3b8a', '登录密码', '2022-05-09 18:13:08', NULL, NULL);
 INSERT INTO `config` VALUES (1, 'user', 'open_register', '1', '是否开放注册', '2022-02-25 11:09:24', '2022-02-25 11:09:24', NULL);
-INSERT INTO `config` VALUES (2, 'sms', 'sms_type', '0', '短信方式：0关闭；1腾讯云；2阿里云', '2022-02-25 11:11:27', '2022-02-25 16:58:48', NULL);
+INSERT INTO `config` VALUES (2, 'sms', 'sms_type', '0', '短信方式：0关闭；1阿里云', '2022-02-25 11:11:27', '2022-02-25 16:58:48', NULL);
 INSERT INTO `config` VALUES (3, 'smtp', 'smtp_status', '0', 'SMTP邮件', '2022-02-25 13:48:36', '2022-02-25 13:48:36', NULL);
 INSERT INTO `config` VALUES (4, 'smtp', 'smtp_address', '', 'SMTP邮箱地址', '2022-02-25 13:48:36', '2022-02-25 13:48:36', NULL);
 INSERT INTO `config` VALUES (5, 'smtp', 'smtp_host', '', 'SMTP邮箱服务器', '2022-02-25 13:48:36', '2022-02-25 13:48:36', NULL);
 INSERT INTO `config` VALUES (6, 'smtp', 'smtp_port', '587', 'SMTP邮箱端口', '2022-02-25 13:48:36', '2022-02-25 13:48:36', NULL);
 INSERT INTO `config` VALUES (7, 'smtp', 'smtp_username', '', 'SMTP邮箱账号', '2022-02-25 13:48:36', '2022-02-25 13:48:36', NULL);
 INSERT INTO `config` VALUES (8, 'smtp', 'smtp_password', '', 'SMTP邮箱密码', '2022-02-25 13:48:36', '2022-02-25 13:48:36', NULL);
-INSERT INTO `config` VALUES (9, 'sms', 'sms_tencent_appid', '', '腾讯云短信APPID', '2022-02-25 13:48:45', '2022-02-25 13:48:52', NULL);
-INSERT INTO `config` VALUES (10, 'sms', 'sms_tencent_appkey', '', '腾讯云短信APPKEY', '2022-02-25 13:48:45', '2022-02-25 13:48:53', NULL);
-INSERT INTO `config` VALUES (11, 'sms', 'sms_tencent_secretid', '', '腾讯云短信秘钥ID', '2022-02-25 13:48:45', '2022-02-25 13:48:54', NULL);
-INSERT INTO `config` VALUES (12, 'sms', 'sms_tencent_secretkey', '', '腾讯云短信密钥值', '2022-02-25 13:48:45', '2022-02-25 13:48:56', NULL);
-INSERT INTO `config` VALUES (13, 'sms', 'sms_tencent_appsign', '', '腾讯云短信签名', '2022-02-25 13:48:45', '2022-02-25 13:48:57', NULL);
-INSERT INTO `config` VALUES (14, 'sms', 'sms_tencent_code_temp', '', '腾讯云短信验证码模板ID', '2022-02-25 13:48:45', '2022-02-25 13:48:59', NULL);
-INSERT INTO `config` VALUES (15, 'sms', 'sms_ali_key', '', '阿里云短信accessKeyId', '2022-02-25 14:49:08', '2022-02-25 14:50:09', NULL);
-INSERT INTO `config` VALUES (16, 'sms', 'sms_ali_secret', '', '阿里云短信accessKeySecret', '2022-02-25 14:49:31', '2022-02-25 14:50:15', NULL);
-INSERT INTO `config` VALUES (17, 'sms', 'sms_ali_code_temp', '', '阿里云短信验证码模板', '2022-02-25 14:50:42', '2022-03-08 14:38:25', NULL);
-INSERT INTO `config` VALUES (18, 'sms', 'sms_ali_appsign', '', '阿里云短信签名', '2022-02-25 14:51:52', '2022-03-08 14:51:04', NULL);
-INSERT INTO `config` VALUES (19, 'sms', 'sms_temp_param_key', '0', '短信验证码数组Key,腾讯云为0,阿里云为参数,如code', '2022-02-25 15:10:43', '2022-02-25 15:10:49', NULL);
-INSERT INTO `config` VALUES (20, 'site', 'site_title', '夜公子API', '系统标题', '2022-05-09 17:58:07', NULL, NULL);
-INSERT INTO `config` VALUES (21, 'site', 'site_keyword', '夜公子API', 'SEO关键字', '2022-05-09 17:58:32', NULL, NULL);
-INSERT INTO `config` VALUES (22, 'site', 'site_description', '夜公子API', 'SEO描述', '2022-05-09 17:59:00', NULL, NULL);
-INSERT INTO `config` VALUES (23, 'site', 'site_temp', '1', '前台模板', '2022-05-09 17:59:25', NULL, NULL);
-INSERT INTO `config` VALUES (24, 'pay', 'pay_epay_url', 'https://epay.abigsoft.com/', '易支付地址，结尾加/', '2022-05-09 18:01:18', NULL, NULL);
-INSERT INTO `config` VALUES (25, 'pay', 'pay_epay_mchid', '', '易支付商户ID', '2022-05-09 18:01:20', NULL, NULL);
-INSERT INTO `config` VALUES (26, 'pay', 'pay_epay_key', '', '易支付商户密钥', '2022-05-09 18:01:23', NULL, NULL);
-INSERT INTO `config` VALUES (27, 'site', 'icp_str', '鲁ICP备', 'ICP备案号', '2022-05-09 18:11:06', NULL, NULL);
-INSERT INTO `config` VALUES (28, 'site', 'cnzz', '', '统计代码', '2022-05-09 18:11:31', NULL, NULL);
-INSERT INTO `config` VALUES (29, 'login', 'login_status', '1', '聚合登录', '2022-05-10 11:57:00', NULL, NULL);
-INSERT INTO `config` VALUES (30, 'login', 'login_url', 'https://login.by.abigsoft.com/', '聚合登录接口地址', '2022-05-10 11:57:03', NULL, NULL);
-INSERT INTO `config` VALUES (31, 'login', 'login_appid', '', '聚合登录应用ID', '2022-05-10 11:57:05', NULL, NULL);
-INSERT INTO `config` VALUES (32, 'login', 'login_appkey', '', '聚合登录应用秘钥', '2022-05-10 11:57:07', NULL, NULL);
-INSERT INTO `config` VALUES (33, 'site', 'index_about', '关于我们\r\n关于我们\r\n关于我们', '关于我们', '2022-05-12 12:01:35', NULL, NULL);
+INSERT INTO `config` VALUES (9, 'sms', 'sms_ali_key', '', '阿里云短信accessKeyId', '2022-02-25 14:49:08', '2022-02-25 14:50:09', NULL);
+INSERT INTO `config` VALUES (10, 'sms', 'sms_ali_secret', '', '阿里云短信accessKeySecret', '2022-02-25 14:49:31', '2022-02-25 14:50:15', NULL);
+INSERT INTO `config` VALUES (11, 'sms', 'sms_ali_code_temp', '', '阿里云短信验证码模板', '2022-02-25 14:50:42', '2022-03-08 14:38:25', NULL);
+INSERT INTO `config` VALUES (12, 'sms', 'sms_ali_appsign', '', '阿里云短信签名', '2022-02-25 14:51:52', '2022-03-08 14:51:04', NULL);
+INSERT INTO `config` VALUES (13, 'sms', 'sms_temp_param_key', '0', '短信验证码数组Key,阿里云为参数,如code', '2022-02-25 15:10:43', '2022-02-25 15:10:49', NULL);
+INSERT INTO `config` VALUES (14, 'site', 'site_title', '夜公子API', '系统标题', '2022-05-09 17:58:07', NULL, NULL);
+INSERT INTO `config` VALUES (15, 'site', 'site_keyword', '夜公子API', 'SEO关键字', '2022-05-09 17:58:32', NULL, NULL);
+INSERT INTO `config` VALUES (16, 'site', 'site_description', '夜公子API', 'SEO描述', '2022-05-09 17:59:00', NULL, NULL);
+INSERT INTO `config` VALUES (17, 'site', 'site_temp', '1', '前台模板', '2022-05-09 17:59:25', NULL, NULL);
+INSERT INTO `config` VALUES (18, 'pay', 'pay_epay_url', 'https://epay.abigsoft.com/', '易支付地址，结尾加/', '2022-05-09 18:01:18', NULL, NULL);
+INSERT INTO `config` VALUES (19, 'pay', 'pay_epay_mchid', '', '易支付商户ID', '2022-05-09 18:01:20', NULL, NULL);
+INSERT INTO `config` VALUES (20, 'pay', 'pay_epay_key', '', '易支付商户密钥', '2022-05-09 18:01:23', NULL, NULL);
+INSERT INTO `config` VALUES (21, 'site', 'icp_str', '鲁ICP备', 'ICP备案号', '2022-05-09 18:11:06', NULL, NULL);
+INSERT INTO `config` VALUES (22, 'site', 'cnzz', '', '统计代码', '2022-05-09 18:11:31', NULL, NULL);
+INSERT INTO `config` VALUES (23, 'login', 'login_status', '1', '聚合登录', '2022-05-10 11:57:00', NULL, NULL);
+INSERT INTO `config` VALUES (24, 'login', 'login_url', 'https://login.by.abigsoft.com/', '聚合登录接口地址', '2022-05-10 11:57:03', NULL, NULL);
+INSERT INTO `config` VALUES (25, 'login', 'login_appid', '', '聚合登录应用ID', '2022-05-10 11:57:05', NULL, NULL);
+INSERT INTO `config` VALUES (26, 'login', 'login_appkey', '', '聚合登录应用秘钥', '2022-05-10 11:57:07', NULL, NULL);
+INSERT INTO `config` VALUES (27, 'site', 'index_about', '关于我们  关于我们', '关于我们', '2022-05-12 12:01:35', NULL, NULL);
 UPDATE `config` SET `id` = 0 WHERE `name` = 'password';
 
 -- ----------------------------
@@ -382,5 +376,23 @@ CREATE TABLE `task`  (
 INSERT INTO `task` VALUES (1, '心跳检测', 0, '', '', '01:00:00', 'Demo', 'run', 1, 1, '2022-05-13 11:04:43', '2022-05-13 12:04:43', 12, 3, 0, '', 1, '', 1, NULL, '2022-05-11 10:00:37', NULL);
 INSERT INTO `task` VALUES (2, '重置汇总', 3, '', '', '00:01:00', 'Reset', 'run', 1, 1, '2022-05-13 11:04:43', '2022-05-14 00:01:00', 24, 3, 0, '', 1, '', 1, '2022-05-11 09:45:32', '2022-05-13 11:00:20', NULL);
 INSERT INTO `task` VALUES (3, '订单处理', 0, '', '', '00:00:01', 'Order', 'run', 1, 31, '2022-05-13 11:35:01', '2022-05-13 11:35:02', 38, 3, 0, '', 1, '', 1, '2022-05-13 11:00:12', '2022-05-13 11:01:45', NULL);
+
+-- ----------------------------
+-- Table structure for phone_code_log
+-- ----------------------------
+DROP TABLE IF EXISTS `phone_code_log`;
+CREATE TABLE `phone_code_log`  (
+   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+   `type` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'login' COMMENT '类型：login，register，reset',
+   `phone` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '手机号',
+   `code` char(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '验证码',
+   `count` int NOT NULL DEFAULT 0 COMMENT '验证次数',
+   `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态：0未验证；1已使用',
+   `create_time` datetime NULL DEFAULT NULL,
+   `update_time` datetime NULL DEFAULT NULL,
+   `delete_time` datetime NULL DEFAULT NULL,
+   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '短信验证码表' ROW_FORMAT = DYNAMIC;
+
 
 SET FOREIGN_KEY_CHECKS = 1;

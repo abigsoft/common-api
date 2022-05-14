@@ -71,7 +71,6 @@
       <path value="$PROJECT_DIR$/vendor/alibabacloud/dysmsapi-20170525" />
       <path value="$PROJECT_DIR$/vendor/alibabacloud/endpoint-util" />
       <path value="$PROJECT_DIR$/vendor/alibabacloud/tea-xml" />
-      <path value="$PROJECT_DIR$/vendor/tencentcloud/tencentcloud-sdk-php" />
       <path value="$PROJECT_DIR$/vendor/alibabacloud/tea" />
       <path value="$PROJECT_DIR$/vendor/alibabacloud/tea-utils" />
       <path value="$PROJECT_DIR$/vendor/easywechat-composer/easywechat-composer" />

@@ -18,21 +18,8 @@ class SmsServer extends BaseService
             ];
         }
         switch ($config['sms_type']){
-            //腾讯云短信
-            case 1:
-                $res = \org\sms\Tencent::send($config,$phone,$data);
-                if(!isset($res['SendStatusSet'])){
-                    return self::ajaxError('调用错误');
-                }
-                if(count($res['SendStatusSet'])==0){
-                    return self::ajaxError('调用错误');
-                }
-                if($res['SendStatusSet'][0]['Code'] != 'Ok'){
-                    return self::ajaxError($res['SendStatusSet'][0]['Message']);
-                }
-                return true;
             //阿里云短信
-            case 2:
+            case 1:
                 $res = \org\sms\Ali::send($config,$phone,json_encode($data));
                 if(!isset($res->code)){
                     return self::ajaxError('调用错误');

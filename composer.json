@@ -36,13 +36,11 @@
         "chillerlan/php-qrcode": "^4.3",
       "ext-json": "*",
       "ext-curl": "*",
-        "tencentcloud/tencentcloud-sdk-php": "^3.0",
         "alibabacloud/darabonba-openapi": "^0.2.8",
         "alibabacloud/dysmsapi-20170525": "^2.0",
         "phpmailer/phpmailer": "^6.6",
         "topthink/think-template": "^2.0",
-        "topthink/think-trace": "^1.4",
-      "ext-http": "*"
+        "topthink/think-trace": "^1.4"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2"

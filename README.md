@@ -31,4 +31,4 @@
 ### 联系作者
     作者博客：http://blog.abug.cc
     QQ聊天群：721181049
-    捐助作者：[![21bbc8deba3b0f4f6ee87127223e750.jpg](http://qn.tbed.abug.cc/2022/04/29/626bab1e1cc34.jpg)](http://qn.tbed.abug.cc/2022/04/29/626bab1e1cc34.jpg)
+    捐助作者：![捐助作者](http://qn.tbed.abug.cc/2022/04/29/626bab1e1cc34.jpg)

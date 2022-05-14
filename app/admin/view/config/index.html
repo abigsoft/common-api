@@ -165,51 +165,8 @@
                                         <div class="col-sm-9">
                                             <select lay-ignore name="sms_type" class="form-control">
                                                 <option value="0">关闭短信</option>
-                                                <option value="1" {if condition="$info.sms_type eq '1'" } selected {/if}>腾讯云短信</option>
-                                                <option value="2" {if condition="$info.sms_type eq '2'" } selected {/if}>阿里云短信</option>
+                                                <option value="1" {if condition="$info.sms_type eq '2'" } selected {/if}>阿里云短信</option>
                                             </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">腾讯云短信APPID</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" autocomplete="off" value="{$info.sms_tencent_appid}"
-                                                   name="sms_tencent_appid" class="form-control" placeholder="请输入腾讯云短信APPID">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">腾讯云短信APPKEY</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" autocomplete="off" value="{$info.sms_tencent_appkey}"
-                                                   name="sms_tencent_appkey" class="form-control" placeholder="请输入腾讯云短信APPKEY">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">腾讯云短信秘钥ID</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" autocomplete="off" value="{$info.sms_tencent_secretid}"
-                                                   name="sms_tencent_secretid" class="form-control" placeholder="请输入腾讯云短信秘钥ID">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">腾讯云短信密钥值</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" autocomplete="off" value="{$info.sms_tencent_secretkey}"
-                                                   name="sms_tencent_secretkey" class="form-control" placeholder="请输入腾讯云短信密钥值">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">腾讯云短信签名</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" autocomplete="off" value="{$info.sms_tencent_appsign}"
-                                                   name="sms_tencent_appsign" class="form-control" placeholder="请输入腾讯云短信签名">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">腾讯云短信验证码模板ID</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" autocomplete="off" value="{$info.sms_tencent_code_temp}"
-                                                   name="sms_tencent_code_temp" class="form-control" placeholder="请输入腾讯云短信验证码模板ID">
                                         </div>
                                     </div>
                                     <div class="form-group">
