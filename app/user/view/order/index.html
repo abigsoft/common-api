@@ -1,0 +1,134 @@
+{extend name='public/_container'} {block name="content"}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row" id="searchGroup">
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">关键字</button>
+                                    </div>
+                                    <input type="text" autocomplete="off" class="form-control" id="keywords" placeholder="关键字" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">状态</button>
+                                    </div>
+                                    <select class="form-control chosen" id="status">
+                                        <option value="">请选择</option>
+                                        <option value="-1">订单失效</option>
+                                        <option value="0">未支付</option>
+                                        <option value="1">支付成功</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">时间范围</button>
+                                    </div>
+                                    <input type="text" autocomplete="off" placeholder="时间范围" class="form-control" id="create_time">
+                                </div>
+                            </div>
+
+                            <!-- search end -->
+                            <div class="col-sm-2">
+                                <button type="button" class="btn btn-success " onclick="TableList.search()">
+                                    <i class="fa fa-search"></i>&nbsp;搜索
+                                </button>
+
+                            </div>
+                        </div>
+                        <table id="TableList" data-mobile-responsive="true" data-click-to-select="true">
+                            <thead><tr><th data-field="selectItem" data-checkbox="true"></th></tr></thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__JS__/common/listCom.js" charset="utf-8"></script>
+<script>
+    var TableList = {id: "TableList", seItem: null, table: null, layerIndex: -1};
+
+    layui.use([ 'form', 'laydate' ], function() {
+        var laydate = layui.laydate;
+        laydate.render({elem: '#create_time',type: 'datetime',range:true,
+            ready: function(date){
+                $(".layui-laydate-footer [lay-type='datetime'].laydate-btns-time").click();
+                $(".laydate-main-list-1 .layui-laydate-content li ol li:last-child").click();
+                $(".layui-laydate-footer [lay-type='date'].laydate-btns-time").click();
+            }
+        });
+    });
+
+    TableList.initColumn = function () {
+        return [
+            {field: 'selectItem', checkbox: true},
+            {title: '编号', field: 'id', visible: true, align: 'center', valign: 'middle'},
+            {title: '订单编号', field: 'order_sn', visible: true, align: 'center', valign: 'middle'},
+            {title: '标题', field: 'title', visible: true, align: 'center', valign: 'middle'},
+            {title: '订单类型', field: 'order_type', visible: true, align: 'center', valign: 'middle',formatter: TableList.orderTypeFormatter},
+            {title: '支付方式', field: 'pay_type', visible: true, align: 'center', valign: 'middle',formatter: TableList.payTypeFormatter},
+            {title: '订单金额', field: 'order_money', visible: true, align: 'center', valign: 'middle'},
+            {title: '订单数量', field: 'order_num', visible: true, align: 'center', valign: 'middle'},
+            {title: '支付金额', field: 'pay_money', visible: true, align: 'center', valign: 'middle'},
+            {title: '支付平台订单号', field: 'order_code', visible: true, align: 'center', valign: 'middle'},
+            {title: '支付完成时间', field: 'pay_time', visible: true, align: 'center', valign: 'middle'},
+            {title: '创建时间', field: 'create_time', visible: true, align: 'center', valign: 'middle'},
+            {title: '更新时间', field: 'update_time', visible: true, align: 'center', valign: 'middle'},
+            {title: '状态', field: 'status', visible: true, align: 'center', valign: 'middle',formatter: TableList.statusFormatter},
+        ];
+    };
+
+    TableList.statusFormatter = function(value,row,index) {
+        return listCom.formatStr(value,[
+            {key:-1,val:'订单失效'},
+            {key:0,val:'未支付'},
+            {key:1,val:'支付成功'},
+        ]);
+    }
+
+    TableList.orderTypeFormatter = function(value,row,index) {
+        return listCom.formatStr(value,[
+            {key:1,val:'包月'},
+        ]);
+    }
+
+    TableList.payTypeFormatter = function(value,row,index) {
+        return listCom.formatStr(value,[
+            {key:'wxpay',val:'微信'},
+            {key:'alipay',val:'支付宝'},
+        ]);
+    }
+
+
+    TableList.formParams = function() {
+        var queryData = {};
+        queryData['keywords'] = $("#keywords").val();
+        queryData['status'] = $("#status").val();
+        queryData['create_time_start'] = $("#create_time").val().split(" - ")[0];
+        queryData['create_time_end'] = $("#create_time").val().split(" - ")[1];
+        return queryData;
+    }
+
+    TableList.search = function () {
+        TableList.table.refresh({query: TableList.formParams()});
+    };
+
+    $(function () {
+        var table = new BSTable(TableList.id, "{:url('index')}" + location.search, TableList.initColumn());
+        table.setQueryParams(TableList.formParams());
+        TableList.table = table.init();
+    });
+</script>
+{/block}
+{/block}

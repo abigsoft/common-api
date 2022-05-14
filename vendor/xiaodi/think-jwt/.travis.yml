@@ -1,0 +1,19 @@
+sudo: true
+
+language: php
+
+php:
+  - 7.1.9
+
+cache:
+  directories:
+    - vendor
+    - "$HOME/.composer/cache"
+    
+script:
+  - composer install --prefer-dist --no-interaction --no-suggest
+  - phpunit --coverage-text --coverage-clover=coverage.clover
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --access-token="$TOKEN" --format=php-clover coverage.clover

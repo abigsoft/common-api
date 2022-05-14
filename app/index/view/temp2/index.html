@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <title>{:config('sys.site_title')}</title>
+    <meta name="description" content="{:config('sys.site_description')}">
+    <meta name="keywords" content="{:config('sys.site_keyword')}">
+    <link rel="stylesheet" type="text/css" href="__CSS__/flaghome.css">
+    <script src="__JS__/jquery.min.js"></script>
+</head>
+<body>
+<div class="background">
+    <canvas id="startrack"></canvas>
+    <div class="cover">
+    </div>
+</div>
+<div class="main">
+    <nav class="nav_jsxs" style="float: right;">
+        <a target="_blank" href="https://blog.abug.cc">博客</a>
+        <a target="_blank" href="{:url('user/index/index')}">登录</a>
+    </nav>
+    <div class="ch intro">
+        <div class="container">
+            <div class="hello">
+                <h1 id="slogan">思考中……</h1>
+                <h2>
+                    <div class="circle">
+                        <span></span><span></span><span></span>
+                    </div>
+                    {:config('sys.site_title')}免费提供API服务
+                </h2>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="find ch">
+    <div class="container links">
+        <h2 class="chtitle"><span>API列表</span></h2>
+        <div class="clear">
+            {foreach $data as $v}
+                <a href="{:url('/index/doc')}/{$v.id}" target="_blank">
+                    <div class="item">
+                        <div class="bg" style="background-color: #28A9E0"></div>
+                        <div class="inner">
+                            <span>{$v.title}</span>
+                        </div>
+                    </div>
+                </a>
+            {/foreach}
+        </div>
+    </div>
+</div>
+<div class="footer ch">
+    <div class="container">
+        <p class="c">
+            <span>© 2021-{:date('Y')}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://blog.abug.cc" rel="nofollow" target="_blank">{:config('sys.site_title')}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://beian.miit.gov.cn/" target="_blank">{:config('sys.icp_str')}</a>
+
+        </p>
+    </div>
+</div>
+</div>
+<script src="__JS__/page.js"></script>
+{:config('sys.cnzz')}
+</body>
+
+</html>

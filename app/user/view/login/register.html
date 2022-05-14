@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>{:config('sys.site_title')}</title>
+    <link href="__STATIC__/login/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="__CSS__/metismenu.min.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/login/assets/css/icons.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/login/assets/css/style.css" rel="stylesheet" type="text/css">
+    <script src="__JS__/jquery.min.js"></script>
+    <script src="__JS__/plugins/layer/layer.min.js"></script>
+</head>
+
+<body>
+<style>
+    .accountbg {
+        background: url(__STATIC__/login/images/restaurant.png);
+        position: absolute;
+        background-position: center center;
+        height: 100%;
+        width: 100%;
+        top: 0;
+    }
+</style>
+<div class="accountbg"></div>
+<div class="home-btn d-none d-sm-block">
+
+</div>
+<div class="wrapper-page">
+    <div class="card card-pages shadow-none">
+        <div class="card-body">
+            <h5 class="font-18 text-center">账户注册</h5>
+            <form id="register" onsubmit="return false" action="#" method="post">
+                <div class="form-group" style="margin-top: 40px">
+                    <div class="col-12">
+                        <label>用户名</label>
+                        <input class="form-control" name="account" type="text" required placeholder="长度为4-10个字符,不能有特殊字符" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-12">
+                        <label>密码</label>
+                        <input class="form-control" name="password" type="password" required="" placeholder="请设置你的密码"  autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-12">
+                        <label>验证码</label>
+                        <input class="form-control" name="verify" type="text" required="" placeholder="请输入下方验证码的结果"  autocomplete="off">
+
+                    </div>
+                    <div style="margin-top: 5px">
+                        <img class="verifyImg col-12" onclick="this.src=this.src+'?c='+Math.random();" id="verifyImg" src="{:url('verify')}"/>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 40px">
+                    <div class="col-12">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1" name="is_agree">
+                            <label class="custom-control-label font-weight-normal" for="customCheck1">我同意 <a href="#" class="text-primary">注册协议</a></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group text-center m-t-20">
+                    <div class="col-12">
+                        <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" id="submit">注册</button>
+                    </div>
+                </div>
+            </form>
+            <div class="form-group mb-0 row">
+                <div class="col-12 m-t-10 text-center">
+                    <a href="{:url('index')}" class="text-muted">已经有账号了?</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+<script>
+    $(function(){
+        $("#submit").click(function(){
+            $.ajax({
+                url:"{:url('register')}",
+                type:'post',
+                data: $('#register').serialize(),
+                dataType: 'json',
+                success(res){
+                    if(res.status === 200){
+                        layer.msg(res.msg,{icon:1,shade:0.3});
+                        setTimeout("window.location ='/user/login/index'",1400);
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            })
+        });
+    })
+</script>
+</html>

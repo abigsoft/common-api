@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Kumbh Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/kumbhsans/v11/c4mw1n92AsfhuCq6tVsaoIx1CHIi4kToNoq0SiNI.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Kumbh Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/kumbhsans/v11/c4mw1n92AsfhuCq6tVsaoIx1CHIi4kToNorqSiNI.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Kumbh Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/kumbhsans/v11/c4mw1n92AsfhuCq6tVsaoIx1CHIi4kToNooNTSNI.ttf) format('truetype');
+}

@@ -1,0 +1,171 @@
+{extend name='public/_container'} {block name="content"}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row" id="searchGroup">
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                                type="button">接口
+                                        </button>
+                                    </div>
+                                    <select class="form-control chosen" id="api_id">
+                                        <option value="">请选择</option>
+                                        {foreach $api_list as $v}
+                                        <option value="{$v.id}">{$v.title}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                                type="button">用户
+                                        </button>
+                                    </div>
+                                    <select class="form-control chosen" id="member_id">
+                                        <option value="">请选择</option>
+                                        {foreach $member_list as $v}
+                                            <option value="{$v.id}">{$v.account}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                                type="button">项目
+                                        </button>
+                                    </div>
+                                    <select class="form-control chosen" id="project_id">
+                                        <option value="">请选择</option>
+                                        {foreach $project_list as $v}
+                                        <option value="{$v.id}">{$v.title}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">关键字</button>
+                                    </div>
+                                    <input type="text" autocomplete="off" class="form-control" id="keywords" placeholder="关键字" />
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">时间范围</button>
+                                    </div>
+                                    <input type="text" autocomplete="off" placeholder="时间范围" class="form-control" id="create_time">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                                type="button">状态
+                                        </button>
+                                    </div>
+                                    <select class="form-control chosen" id="status">
+                                        <option value="">请选择</option>
+                                        <option value="1">成功</option>
+                                        <option value="0">失败</option>
+                                        <option value="-1">拦截</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- search end -->
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-success " onclick="TableList.search()" id="">
+                                    <i class="fa fa-search"></i>&nbsp;搜索
+                                </button>
+                            </div>
+                        </div>
+                        <table id="TableList" data-mobile-responsive="true" data-click-to-select="true"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__JS__/common/listCom.js" charset="utf-8"></script>
+<script>
+    var TableList = {id: "TableList",seItem: null,table: null,layerIndex: -1};
+
+    TableList.initColumn = function () {
+        return [
+            {title: '编号', field: 'id', visible: true, align: 'center', valign: 'middle'},
+            {title: '接口', field: 'api_title', visible: true, align: 'center', valign: 'middle'},
+            {title: '用户', field: 'member_account', visible: true, align: 'center', valign: 'middle'},
+            {title: '项目', field: 'project_title', visible: true, align: 'center', valign: 'middle'},
+            {title: '请求IP', field: 'ip', visible: true, align: 'center', valign: 'middle'},
+            {title: '请求参数', field: 'request', visible: true, align: 'center', valign: 'middle'},
+            {title: '返回参数', field: 'result', visible: true, align: 'center', valign: 'middle'},
+            {title: '消息', field: 'message', visible: true, align: 'center', valign: 'middle'},
+            {title: '状态', field: 'status', visible: true, align: 'center', valign: 'middle',formatter: TableList.statusFormatter},
+            {title: '时间', field: 'create_time', visible: true, align: 'center', valign: 'middle'},
+        ];
+    };
+
+    TableList.statusFormatter = function (value, row, index) {
+        return listCom.formatStr(value, [
+            {'key': 1, 'val': '<span class="label label-success">成功</span>'},
+            {'key': 0, 'val': '<span class="label label-danger">失败</span>'},
+            {'key': -1, 'val': '<span class="label label-warning">拦截</span>'},
+        ]);
+    }
+
+    TableList.formParams = function() {
+        var queryData = {};
+        queryData['offset'] = 0;
+        queryData['api_id'] = $("#api_id").val();
+        queryData['member_id'] = $("#member_id").val();
+        queryData['project_id'] = $("#project_id").val();
+        queryData['keywords'] = $("#keywords").val();
+        queryData['status'] = $("#status").val();
+        queryData['create_time_start'] = $("#create_time").val().split(" - ")[0];
+        queryData['create_time_end'] = $("#create_time").val().split(" - ")[1];
+        return queryData;
+    }
+
+    TableList.check = function () {
+        var selected = $('#' + this.id).bootstrapTable('getSelections');
+        if(selected.length == 0){
+            com.info("请先选中表格中的某一记录！");
+            return false;
+        }else{
+            TableList.seItem = selected;
+            return true;
+        }
+    };
+
+    TableList.search = function () {
+        TableList.table.refresh({query: TableList.formParams()});
+    };
+
+    $(function () {
+        var table = new BSTable(TableList.id, "{:url('api')}" + location.search, TableList.initColumn());
+        table.setQueryParams(TableList.formParams());
+        TableList.table = table.init();
+    });
+
+    layui.use([ 'form', 'laydate' ], function() {
+        var laydate = layui.laydate;
+        laydate.render({elem: '#create_time',type: 'datetime',range:true,
+            ready: function(date){
+                $(".layui-laydate-footer [lay-type='datetime'].laydate-btns-time").click();
+                $(".laydate-main-list-1 .layui-laydate-content li ol li:last-child").click();
+                $(".layui-laydate-footer [lay-type='date'].laydate-btns-time").click();
+            }
+        });
+    });
+</script>
+{/block}

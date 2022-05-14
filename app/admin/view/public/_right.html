@@ -1,0 +1,32 @@
+<div id="page-wrapper" class="gray-bg dashbard-1">
+    <div class="row content-tabs">
+
+        <button class="roll-nav roll-left navbar-minimalize">
+            <i class="fa fa-bars"></i>
+        </button>
+        <button class="roll-nav roll-left J_tabLeft" style="left: 40px;">
+            <i class="fa fa-backward"></i>
+        </button>
+        <nav class="page-tabs J_menuTabs" style="margin-left: 80px;">
+            <div class="page-tabs-content">
+                <a href="javascript:;" class="active J_menuTab" data-id="{:url('admin/index/main')}">首页</a>
+            </div>
+        </nav>
+        <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i></button>
+        <div class="btn-group roll-nav roll-right">
+            <button class="dropdown" data-toggle="dropdown">页签操作<span class="caret"></span></button>
+            <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                <li class="tabCloseCurrent"><a>关闭当前</a></li>
+                <li class="J_tabCloseOther"><a>关闭其他</a></li>
+                <li class="J_tabCloseAll"><a>全部关闭</a></li>
+            </ul>
+        </div>
+        <a href="#" class="roll-nav roll-right tabReload"><i class="fa fa-refresh"></i> 刷新</a>
+    </div>
+    <div class="row J_mainContent" id="content-main">
+        <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="{:url('admin/index/main')}" frameborder="0" data-id="{:url('admin/index/main')}" seamless></iframe>
+    </div>
+    <div class="footer gray-bg">
+        <div class="pull-right">&copy; 2021-{:date('Y')} <a href="https://www.abigsoft.com" target="_blank">山东一个小软件开发有限公司</a></div>
+    </div>
+</div>

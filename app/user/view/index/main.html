@@ -1,0 +1,118 @@
+{extend name='public/_container'}
+{block name="content"}
+
+<div class="row ">
+    <div class="col-sm-12 ">
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    设置
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">绑定QQ</label>
+                            <div class="col-md-6">
+                                {if $member.qq_id!=''}
+                                <button class="btn btn-danger" onclick="InfoDlg.bind('qq')">换绑QQ</button>
+                                {else}
+                                <button class="btn btn-primary" onclick="InfoDlg.bind('qq')">绑定QQ</button>
+                                {/if}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">绑定微信</label>
+                            <div class="col-md-6">
+                                {if $member.wx_id!=''}
+                                <button class="btn btn-danger" onclick="InfoDlg.bind('wx')">换绑微信</button>
+                                {else}
+                                <button class="btn btn-primary" onclick="InfoDlg.bind('wx')">绑定微信</button>
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    修改密码
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-9 b-r">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">新密码：</label>
+                                    <div class="col-sm-8">
+                                        <input type="password" placeholder="请输入新密码" class="form-control"
+                                               autocomplete="off" id="password" >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">确认密码：</label>
+                                    <div class="col-sm-8">
+                                        <input type="password" placeholder="请再次输入密码" class="form-control"
+                                               autocomplete="off" id="repassword">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="text-center">
+                                <a href="###" onclick="InfoDlg.password()"><i class="fa fa-edit mid-icon" style="font-size: 82px;"></i></a>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var InfoDlg = {
+        formData: {},
+    }
+
+    InfoDlg.password = function () {
+        InfoDlg.collectData();
+        this.set('password').set('repassword');
+
+        if(InfoDlg.get('password') === ''){
+            com.error("请输入密码！", 1000);
+            return false;
+        }
+
+        if(InfoDlg.get('password') !== InfoDlg.get('repassword')){
+            com.error("确认密码不相同！", 1000);
+            return false;
+        }
+
+        const ajax = new $ax("{:url('config/password')}", function (res) {
+            if (res.status === 200) {
+                com.success(res.msg, 1000);
+                InfoDlg.close();
+            } else {
+                com.error(res.msg + "！", 1000);
+            }
+        });
+        ajax.set(this.formData);
+        ajax.start();
+    };
+
+    InfoDlg.bind = function (type){
+        if(type === 'qq'){
+            window.location.href = "{:url('qq')}";
+        }else{
+            window.location.href = "{:url('wx')}";
+        }
+
+    }
+</script>
+<script src="__JS__/common/formCom.js" charset="utf-8"></script>
+{/block}

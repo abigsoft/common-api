@@ -1,0 +1,195 @@
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>{:config('sys.site_title')} - {$api_info.title}</title>
+    <meta name="description" content="{:config('sys.site_description')}">
+    <meta name="keywords" content="{:config('sys.site_keyword')}">
+    <meta name="author" content="夜公子">
+    <link rel="stylesheet" href="__STATIC__/mdui/css/mdui.min.css">
+    <link rel="stylesheet" href="__CSS__/github-gist.css">
+    <link rel="stylesheet" href="__CSS__/docs.css">
+    <link rel="stylesheet" href="__LAY__/css/layui.css">
+    <script src="__JS__/jquery.min.js"></script>
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-indigo mdui-loaded">
+<header class="mdui-appbar mdui-appbar-fixed">
+    <div class="mdui-toolbar mdui-color-theme">
+            <span class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" mdui-drawer="{target: '#main-drawer'}">
+				<i class="mdui-icon material-icons">menu</i>
+			</span>
+        <a href="" class="mdui-typo-headline mdui-hidden-xs">{$api_info.title}</a>
+    </div>
+</header>
+<div class="mdui-drawer" id="main-drawer">
+    <div class="mdui-list" mdui-collapse="{accordion: true}" style="margin-bottom: 76px;">
+        {foreach $list as $v}
+        <div class="mdui-collapse-item">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-content">
+                    <a href="{:url('/index/doc')}/{$v.id}">{$v.title}</a>
+                </div>
+            </div>
+        </div>
+        {/foreach}
+    </div>
+</div>
+<div class="mdui-container doc-container">
+    <div class="mdui-typo">
+        <h1 class="doc-title mdui-text-color-theme">{$api_info.title}</h1>
+    </div>
+    <div class="doc-intro mdui-typo" style="margin-top: 20px">
+        {$api_info.desc}
+    </div>
+    <nav class="doc-toc mdui-text-color-theme">
+        <ul>
+            <li>
+                <a href="#1">使用教程</a>
+                <ul>
+                    <li><a href="#2">请求地址</a></li>
+                    <li><a href="#3">请求方式</a></li>
+                    <li><a href="#4">请求示例</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#5">参数字典</a>
+                <ul>
+                    <li><a href="#6">请求参数</a></li>
+                    <li><a href="#7">返回参数</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#8">返回结果</a>
+                <ul>
+                    <li><a href="#9">成功Demo</a></li>
+                    <li><a href="#10">失败Demo</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div class="doc-chapter">
+        <div class="mdui-typo">
+            <h2 class="doc-chapter-title doc-chapter-title-first mdui-text-color-theme">使用教程
+                <a class="doc-anchor" id="1"></a>
+            </h2>
+        </div>
+        <div class="mdui-typo">
+            <hr>
+            <p id="2">
+                请求地址 <a><code>{:getDomain()}/api/{$api_info.ext}</code></a>
+            </p>
+            <p id="3">
+                请求方式 <code>{$api_info.type}</code>
+            </p>
+            <p id="4">
+                请求地址 <a><code id="URL" onclick="myCopyFunction()">{:getDomain()}/api/{$api_info.ext}?sign=</code></a>
+            </p>
+        </div>
+        <div class="mdui-typo">
+            <h2 class="doc-chapter-title doc-chapter-title-first mdui-text-color-theme">参数字典
+                <a class="doc-anchor" id="5"></a>
+            </h2>
+        </div>
+        <div class="mdui-typo">
+            <hr>
+            <p id="6">
+                请求参数
+            </p>
+            <div>
+                <table class="layui-table" lay-size="sm">
+                    <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>类型</th>
+                        <th>必填</th>
+                        <th>默认值</th>
+                        <th>示例</th>
+                        <th>说明</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach $request as $v}
+                    <tr>
+                        <td>{$v.field}</td>
+                        <td>{$v.type}</td>
+                        <td>{$v.is_must?'是':'否'}</td>
+                        <td>{$v.default}</td>
+                        <td>{$v.demo}</td>
+                        <td>{$v.desc}</td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+            </div>
+            <p id="7" style="margin-top: 10px;">
+                返回参数
+            </p>
+            <div>
+                <table class="layui-table" lay-size="sm">
+                    <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>示例</th>
+                        <th>说明</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach $result as $v}
+                    <tr>
+                        <td>{$v.field}</td>
+                        <td>{$v.demo}</td>
+                        <td>{$v.desc}</td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mdui-typo">
+            <h2 class="doc-chapter-title doc-chapter-title-first mdui-text-color-theme">返回结果
+                <a class="doc-anchor" id="8"></a>
+            </h2>
+        </div>
+        <div class="mdui-typo">
+            <hr>
+            <p id="9">
+                成功Demo
+            </p>
+            <pre class="">
+                    <code class="lang-html hljs xml"><span class="hljs-tag">{$api_info.result_success_demo}</span></code>
+                </pre>
+            <p id="10">
+                失败Demo
+            </p>
+            <pre class="">
+                    <code class="lang-html hljs xml"><span class="hljs-tag">{$api_info.result_error_demo}</span></code>
+                </pre>
+        </div>
+    </div>
+</div>
+<script>
+    function myCopyFunction() {
+        var myText = document.createElement("textarea")
+        myText.value = document.getElementById("URL").innerHTML;
+        document.body.appendChild(myText)
+        myText.select();
+        document.execCommand('copy');
+        document.body.removeChild(myText);
+        mdui.snackbar("请求链接已复制");
+    }
+</script>
+<script src="__JS__/smooth-scroll.min.js"></script>
+<script src="__JS__/holder.min.js"></script>
+<script src="__JS__/highlight.pack.js"></script>
+<script src="__STATIC__/mdui/js/mdui.min.js"></script>
+<script>
+    var $$ = mdui.$;
+</script>
+<script src="__JS__/docs.js"></script>
+{:config('sys.cnzz')}
+</body>
+
+</html>

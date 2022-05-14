@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>管理员登陆 - 后台管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="__LAY__/css/layui.css?ver=170803" media="all">
+    <link rel="stylesheet" href="__STATIC__/login/assets/css/admin.css" media="all">
+    <link rel="stylesheet" href="__STATIC__/login/assets/css/login.css" media="all">
+    <script src="__JS__/jquery.min.js?v=2.1.4"></script>
+    <script src="__JS__/plugins/layer/layer.min.js"></script>
+    <script src="__JS__/common/ajax-object.js?v=<?php echo rand(1000,9999)?>"></script>
+    <script src="__JS__/common.js"></script>
+    <style type="text/css">
+        body {
+            background-image: url("__STATIC__/login/images/background.jpg");
+            background-size: cover;
+        }
+
+        .layadmin-user-login-main {
+            z-index: 1;
+            background-color: #FFF;
+            border-radius: 1em;
+            border: 1px solid #fff;
+        }
+
+        .layui-input:focus, .layui-textarea:focus {
+            border-color: #1E9FFF !important
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="layadmin-user-login layadmin-user-display-show" style="display: none;">
+
+    <div class="layadmin-user-login-main">
+        <div class="layadmin-user-login-box layadmin-user-login-header">
+            <h2>{:config('sys.site_title')}</h2>
+        </div>
+        <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-username"></label>
+                <input type="text" name="account" id="account" lay-verify="required" placeholder="用户名"
+                       class="layui-input"  autocomplete="off">
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-password"></label>
+                <input type="password" name="password" id="password" lay-verify="required" placeholder="密码"
+                       class="layui-input"  autocomplete="off">
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-row">
+                    <div class="layui-col-xs7">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-vercode"></label>
+                        <input type="text" name="verity" id="verify" placeholder="验证码" class="layui-input">
+                    </div>
+                    <div class="layui-col-xs5">
+                        <div style="margin-left: 10px;">
+                            <img id="img" class="verifyImg layadmin-user-login-codeimg" id="LAY-user-get-vercode"
+                                 onclick="this.src=this.src+'?c='+Math.random();" src="{:url('admin/login/verify')}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <button class="layui-btn layui-btn-fluid layui-bg-blue" onclick="login()" id="login">登陆</button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    document.onkeydown = function (e) {
+        var ev = document.all ? window.event : e;
+        if (ev.keyCode == 13) {
+            login();
+        }
+    };
+
+    function login() {
+        var account = $("#account").val();
+        var password = $("#password").val();
+        var verify = $("#verify").val();
+
+        if (!account || !password) {
+            com.info("请输入用户名或者密码！");
+            return false;
+        }
+
+        if (!verify) {
+            com.info("请输入验证码！");
+            return false;
+        }
+
+        var ajax = new $ax("{:url('index')}", function (data) {
+            if (1 === data.code) {
+                com.success(data.msg);
+                $("#submit").val('正在登陆');
+                window.location.href = data.url;
+            } else {
+                $("#img").attr('src', "{:url('verify')}?=" + Math.random());
+                com.error(data.msg);
+            }
+        });
+        ajax.set('account', account);
+        ajax.set('password', password);
+        ajax.set('verify', verify);
+        ajax.start();
+    }
+
+</script>
+</body>
+</html>

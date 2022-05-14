@@ -1,0 +1,326 @@
+{extend name='public/_container'}
+{block name="content"}
+<div class="row">
+    <form class="form-horizontal" id="doSubmit">
+        <div class="col-sm-12">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h4>系统配置</h4>
+                </div>
+                <div class="ibox-content">
+                    <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 基本设置</a>
+                            </li>
+                            <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">用户配置</a>
+                            </li>
+                            <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">邮箱配置</a>
+                            </li>
+                            <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">短信配置</a>
+                            </li>
+                            <li class=""><a data-toggle="tab" href="#tab-5" aria-expanded="false">支付配置</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">站点名称：</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" id="site_title" value="{$info.site_title}" name="site_title" class="form-control" placeholder="请输入站点名称">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">关键词站点：</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" class="form-control" data-role="tagsinput" id="site_keyword" value="{$info.site_keyword}" name="site_keyword"  >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">站点描述：</label>
+                                        <div class="col-sm-9">
+                                            <textarea id="site_description" name="site_description"  class="form-control" placeholder="请输入站点描述">{$info.site_description}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">ICP备案号：</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" id="icp_str" value="{$info.icp_str}" name="icp_str" class="form-control" placeholder="请输入ICP备案号">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">统计代码：</label>
+                                        <div class="col-sm-9">
+                                            <textarea id="cnzz" name="cnzz"  class="form-control" placeholder="请输入统计代码">{$info.cnzz}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">前台模板：</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="site_temp" id="site_temp">
+                                                <option value="1" selected>模板一</option>
+                                                <option value="2" {if $info.site_temp == 2} selected {/if}>模板二</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">关于我们：</label>
+                                        <div class="col-sm-9">
+                                            <textarea id="index_about" name="index_about"  class="form-control" placeholder="请输入关于我们">{$info.index_about}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tab-2" class="tab-pane">
+                                <div class="panel-body">
+                                    <div class="form-group layui-form">
+                                        <label class="col-sm-2 control-label">开放注册</label>
+                                        <div class="col-sm-9">
+                                            <input name="open_register" value="1" type="radio" checked title="开启">
+                                            <input name="open_register" value="0" type="radio" {if condition="$info.open_register eq '0'"} checked {/if} title="禁止">
+                                        </div>
+                                    </div>
+                                    <div class="form-group layui-form">
+                                        <label class="col-sm-2 control-label">开启聚合登录</label>
+                                        <div class="col-sm-9">
+                                            <input name="login_status" value="1" type="radio" {if condition="$info.login_status eq '1'"}checked {/if} title="正常">
+                                            <input name="login_status" value="0" type="radio" {if condition="$info.login_status eq '0'"}checked {/if} title="禁用">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">聚合登录地址</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.login_url}"
+                                                   name="login_url" class="form-control" placeholder="请输入聚合登录地址">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">聚合登录应用ID</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.login_appid}"
+                                                   name="login_appid" class="form-control" placeholder="请输入聚合登录应用ID">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">聚合登录应用密钥</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.login_appkey}"
+                                                   name="login_appkey" class="form-control" placeholder="请输入聚合登录应用密钥">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div id="tab-3" class="tab-pane">
+                                <div class="panel-body">
+                                    <div class="form-group layui-form">
+                                        <label class="col-sm-2 control-label">开启邮件推送</label>
+                                        <div class="col-sm-9">
+                                            <input name="smtp_status" value="1" type="radio" checked title="正常">
+                                            <input name="smtp_status" value="0" type="radio" {if condition="$info.smtp_status eq '0'"} checked {/if} title="禁用">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">SMTP邮箱地址</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.smtp_address}"
+                                                   name="smtp_address" class="form-control" placeholder="请输入SMTP邮箱地址">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">SMTP邮箱服务器</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.smtp_host}"
+                                                   name="smtp_host" class="form-control" placeholder="请输入SMTP邮箱服务器">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">SMTP邮箱端口</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.smtp_port}"
+                                                   name="smtp_port" class="form-control" placeholder="请输入SMTP邮箱端口">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">SMTP邮箱密码</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.smtp_password}"
+                                                   name="smtp_password" class="form-control" placeholder="请输入SMTP邮箱密码">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">SMTP邮箱账号</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.smtp_username}"
+                                                   name="smtp_username" class="form-control" placeholder="请输入SMTP邮箱账号">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tab-4" class="tab-pane">
+                                <div class="panel-body">
+                                    <div class="form-group ">
+                                        <label class="col-sm-2 control-label">短信配置</label>
+                                        <div class="col-sm-9">
+                                            <select lay-ignore name="sms_type" class="form-control">
+                                                <option value="0">关闭短信</option>
+                                                <option value="1" {if condition="$info.sms_type eq '1'" } selected {/if}>腾讯云短信</option>
+                                                <option value="2" {if condition="$info.sms_type eq '2'" } selected {/if}>阿里云短信</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">腾讯云短信APPID</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.sms_tencent_appid}"
+                                                   name="sms_tencent_appid" class="form-control" placeholder="请输入腾讯云短信APPID">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">腾讯云短信APPKEY</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.sms_tencent_appkey}"
+                                                   name="sms_tencent_appkey" class="form-control" placeholder="请输入腾讯云短信APPKEY">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">腾讯云短信秘钥ID</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.sms_tencent_secretid}"
+                                                   name="sms_tencent_secretid" class="form-control" placeholder="请输入腾讯云短信秘钥ID">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">腾讯云短信密钥值</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.sms_tencent_secretkey}"
+                                                   name="sms_tencent_secretkey" class="form-control" placeholder="请输入腾讯云短信密钥值">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">腾讯云短信签名</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.sms_tencent_appsign}"
+                                                   name="sms_tencent_appsign" class="form-control" placeholder="请输入腾讯云短信签名">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">腾讯云短信验证码模板ID</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.sms_tencent_code_temp}"
+                                                   name="sms_tencent_code_temp" class="form-control" placeholder="请输入腾讯云短信验证码模板ID">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">阿里云短信accessKeyId</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.sms_ali_key}"
+                                                   name="sms_ali_key" class="form-control" placeholder="请输入阿里云短信accessKeyId">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">阿里云短信accessKeySecret</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.sms_ali_secret}"
+                                                   name="sms_ali_secret" class="form-control" placeholder="请输入阿里云短信accessKeySecret">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">阿里云短信验证码模板</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.sms_ali_code_temp}"
+                                                   name="sms_ali_code_temp" class="form-control" placeholder="请输入阿里云短信验证码模板">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">阿里云短信验证码模板</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.sms_ali_code_temp}"
+                                                   name="sms_ali_code_temp" class="form-control" placeholder="请输入阿里云短信验证码模板">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">阿里云短信签名</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.sms_ali_appsign}"
+                                                   name="sms_ali_appsign" class="form-control" placeholder="请输入阿里云短信签名">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">短信验证码数组Key</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.sms_temp_param_key}"
+                                                   name="sms_temp_param_key" class="form-control" placeholder="请输入短信验证码数组Key">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tab-5" class="tab-pane">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">易支付地址</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.pay_epay_url}"
+                                                   name="pay_epay_url" class="form-control" placeholder="请输入易支付地址">
+                                            <span class="help-block m-b-none">易支付地址，结尾加/</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">易支付商户ID</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.pay_epay_mchid}"
+                                                   name="pay_epay_mchid" class="form-control" placeholder="请输入易支付商户ID">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">易支付商户密钥</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" autocomplete="off" value="{$info.pay_epay_key}"
+                                                   name="pay_epay_key" class="form-control" placeholder="请输入易支付商户密钥">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="row btn-group-m-t">
+                            <div class="col-sm-7">
+                                <button type="button" class="btn btn-primary" id="ensure">
+                                    <i class="fa fa-check"></i>&nbsp;确认提交
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{/block}
+{block name="script"}
+
+<script>
+    layui.use(['form'],function(){});
+    $(function () {
+        $("#ensure").click(function () {
+            $.ajax({
+                url: "{:url('config/index')}",
+                type: 'post',
+                data: $('#doSubmit').serialize(),
+                dataType: 'json',
+                success(res) {
+
+                    if (res.status == 200) {
+                        com.success(res.msg)
+                    } else {
+                        com.error(res.msg, 1500);
+                    }
+                }
+            })
+        });
+    })
+</script>
+{/block}

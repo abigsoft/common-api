@@ -1,0 +1,125 @@
+{extend name='public/_container'}
+{block name="content"}
+<div class="row">
+    <form class="form-horizontal" id="doSubmit">
+        <div class="col-sm-12">
+            <div class="ibox ">
+                <div class="ibox-content">
+                    <!-- form start -->
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">标题：</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="title" name="title" class="form-control" placeholder="请输入标题" autocomplete="off" value="{$info.title}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">调用类型：</label>
+                        <div class="col-sm-7">
+                            <select class="form-control chosen" id="type">
+                                <option value="Array" selected>Array</option>
+                                <option value="Object" {if $info.type == 'Object'} selected {/if}>Object</option>
+                            </select>
+                            <span class="help-block m-b-none">Array方式取值为数组，Object方式取值为对象</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">调用名称：</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="请输入调用名称" autocomplete="off" value="{$info.name}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">参数值：</label>
+                        <div class="col-sm-7">
+                            <textarea id="data" name="data"  class="form-control" placeholder="请输入参数值">{$info.data}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">备注：</label>
+                        <div class="col-sm-7">
+                            <textarea id="desc" name="desc"  class="form-control" placeholder="请输入备注">{$info.desc}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">排序：</label>
+                        <div class="col-sm-7">
+                            <input type="number" id="sort" name="sort" class="form-control" placeholder="请输入排序" autocomplete="off" value="{$info.sort}" min="0" step="1">
+                        </div>
+                    </div>
+
+                    <div class="form-group layui-form">
+                        <label class="col-sm-3 control-label">状态：</label>
+                        <div class="col-sm-7">
+                            <input name="status" value="1" type="radio" checked title="正常">
+                            <input name="status" value="0" type="radio" {if condition="$info.status eq '0'"}checked{/if} title="禁用">
+                        </div>
+                    </div>
+
+
+                    <!-- form end -->
+                    <div class="hr-line-dashed"></div>
+                    <div class="row btn-group-m-t">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-primary" onclick="InfoDlg.submit()" id="ensure">
+                                <i class="fa fa-check"></i>&nbsp;确认提交
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="InfoDlg.close()" id="cancel" style="margin-left: 20px">
+                                <i class="fa fa-remove"></i>&nbsp;取消关闭
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+<script type="text/javascript">
+
+    var InfoDlg = {
+        formData: {},
+    }
+
+    InfoDlg.collectData = function (){
+        this.set('title').set('name').set('data').set('desc').set('sort').set('type');
+    }
+
+    InfoDlg.Validate = function (){
+        return true;
+    }
+
+    InfoDlg.submit = function () {
+        this.collectData();
+        if(!this.Validate()){
+            return;
+        }
+
+        const status = $("input[name = 'status']:checked").val();
+
+        const ajax = new $ax("{:url('update',['id'=>$id])}", function (res) {
+            if (res.status === 200) {
+                com.success(res.msg, 1000);
+                window.parent.TableList.table.refresh();
+                InfoDlg.close();
+            } else {
+                com.error(res.msg + "！", 1000);
+            }
+        });
+        ajax.set('api_id',"{$api_id}");
+        ajax.set('status',status);
+        ajax.set(this.formData);
+        ajax.start();
+    };
+</script>
+<script src="__JS__/common/formCom.js" charset="utf-8"></script>
+{/block}

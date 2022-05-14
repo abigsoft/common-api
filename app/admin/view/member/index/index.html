@@ -1,0 +1,183 @@
+{extend name='public/_container'} {block name="content"}
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="row" id="searchGroup">
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                        type="button">关键字
+                                </button>
+                            </div>
+                            <input type="text" autocomplete="off" class="form-control" id="keywords"
+                                   placeholder="关键字"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                        type="button">状态
+                                </button>
+                            </div>
+                            <select class="form-control chosen" id="status">
+                                <option value="">请选择</option>
+                                <option value="1">正常</option>
+                                <option value="0">禁用</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- search end -->
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-success " onclick="TableList.search()">
+                            <i class="fa fa-search"></i>&nbsp;搜索
+                        </button>
+
+                    </div>
+                </div>
+                <div class="btn-group-sm pull-left" id="CodeGoodsTableToolbar" role="group" style="margin-top: 10px;">
+                    <button type="button" id="create" class="btn btn-success button-margin"
+                            onclick="TableList.update(0)">
+                        <i class="fa fa-plus"></i>&nbsp;添加
+                    </button>
+                    <button type="button" id="delete" class="btn btn-danger button-margin"
+                            onclick="TableList.delete()">
+                        <i class="fa fa-trash"></i>&nbsp;删除
+                    </button>
+                </div>
+                <table id="TableList" data-mobile-responsive="true" data-click-to-select="true">
+                    <thead>
+                    <tr>
+                        <th data-field="selectItem" data-checkbox="true"></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__JS__/common/listCom.js" charset="utf-8"></script>
+<script>
+    var TableList = {id: "TableList", seItem: null, table: null, layerIndex: -1};
+
+    TableList.initColumn = function () {
+        return [
+            {field: 'selectItem', checkbox: true},
+            {title: '编号', field: 'id', visible: true, align: 'center', valign: 'middle'},
+            {title: '账号',field: 'account',visible: true,align: 'center',valign: 'middle'},
+            {
+                title: '状态',
+                field: 'status',
+                visible: true,
+                align: 'center',
+                valign: 'middle',
+                formatter: TableList.statusFormatter
+            },
+            {title: '绑定微信', field: 'wx_id', visible: true, align: 'center', valign: 'middle'},
+            {title: '绑定QQ', field: 'qq_id', visible: true, align: 'center', valign: 'middle'},
+            {title: '创建时间', field: 'create_time', visible: true, align: 'center', valign: 'middle'},
+            {title: '更新时间', field: 'update_time', visible: true, align: 'center', valign: 'middle'},
+            {
+                title: '操作',
+                field: '',
+                visible: true,
+                align: 'center',
+                valign: 'middle',
+                formatter: TableList.buttonFormatter
+            },
+        ];
+    };
+
+    TableList.buttonFormatter = function (value, row, index) {
+        if (row.id) {
+            var str = '';
+            str += '<button type="button" class="btn btn-success btn-xs" title="修改"  onclick="TableList.update(' + row.id + ')"><i class="fa fa-pencil"></i>&nbsp;修改</button>&nbsp;';
+            str += '<button type="button" class="btn btn-danger btn-xs" title="删除"  onclick="TableList.delete(' + row.id + ')"><i class="fa fa-trash"></i>&nbsp;删除</button>&nbsp;';
+            return str;
+        }
+    }
+
+    TableList.statusFormatter = function (value, row, index) {
+        return listCom.switchBtn(row.id, 'status', value === 1 ? 0 : 1, "{:url('status')}");
+    }
+
+    TableList.formParams = function () {
+        var queryData = {};
+        queryData['keywords'] = $("#keywords").val();
+        queryData['status'] = $("#status").val();
+        return queryData;
+    }
+
+    TableList.check = function () {
+        var selected = $('#' + this.id).bootstrapTable('getSelections');
+        if (selected.length === 0) {
+            com.info("请先选中表格中的某一记录！");
+            return false;
+        } else {
+            TableList.seItem = selected;
+            return true;
+        }
+    };
+
+    TableList.update = function (value) {
+        layer.open({
+            type: 2,
+            title: '提交',
+            area: ['900px', '500px'],
+            fix: false,
+            maxmin: true,
+            content: "{:url('update')}?id=" + value
+        });
+    }
+
+
+    TableList.delete = function (value) {
+        if (value) {
+            com.confirm("是否删除选中项？", function () {
+                var ajax = new $ax("{:url('delete')}", function (res) {
+                    if (res.status === 200) {
+                        com.success(res.msg);
+                        TableList.table.refresh();
+                    } else {
+                        com.error(res.msg);
+                    }
+                });
+                ajax.set('id', value);
+                ajax.start();
+            });
+        } else {
+            if (this.check()) {
+                var idx = '';
+                $.each(TableList.seItem, function () {
+                    idx += ',' + this.id;
+                });
+                idx = idx.substr(1);
+                com.confirm("是否删除选中项？", function () {
+                    var ajax = new $ax("{:url('delete')}", function (res) {
+                        if (res.status === 200) {
+                            com.success(res.msg, 1000);
+                            TableList.table.refresh();
+                        } else {
+                            com.error(res.msg, 1000);
+                        }
+                    });
+                    ajax.set('id', idx);
+                    ajax.start();
+                });
+            }
+        }
+    }
+
+    TableList.search = function () {
+        TableList.table.refresh({query: TableList.formParams()});
+    };
+
+    $(function () {
+        var table = new BSTable(TableList.id, "{:url('index')}" + location.search, TableList.initColumn());
+        table.setQueryParams(TableList.formParams());
+        TableList.table = table.init();
+    });
+</script>
+{/block}

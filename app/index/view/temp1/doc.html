@@ -1,0 +1,208 @@
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>{:config('sys.site_title')} - {$api_info.title}</title>
+    <meta name="description" content="{:config('sys.site_description')}">
+    <meta name="keywords" content="{:config('sys.site_keyword')}">
+    <meta name="author" content="夜公子">
+    <link href="__CSS__/site.min.css" rel="stylesheet">
+    <link href="__CSS__/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="__LAY__/css/layui.css">
+    <link href="__CSS__/oneui.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <script src="__JS__/jquery.min.js"></script>
+    <script src="__LAY__/layui.js"></script>
+</head>
+<body>
+<header class="site-header">
+    <nav class="nav_jsxs">
+        <a href="../">首页</a>
+        <a target="_blank" href="https://blog.abug.cc">博客</a>
+        <a target="_blank" href="{:url('user/index/index')}">登录</a>
+    </nav>
+    <div class="box-text">
+        <h1>{$api_info.title}</h1>
+        <p>稳定、快速、免费的 API 接口服务<br><span class="package-amount">本接口已被调用 {$api_info.now_count} 次</span>
+        </p>
+    </div>
+</header>
+<style>
+    .url {
+        word-break: break-all;
+        cursor: pointer;
+        margin-left: 5px;
+        color: #777;
+        border: none;
+        border-radius: 0;
+        border-bottom: 2px solid #5FB878;
+    }
+
+    .simpleTable {
+        line-height: 20px;
+        padding-bottom: 16px;
+    }
+
+    .linep {
+        font-size: 14px;
+        font-weight: 700;
+        color: #555;
+        padding-left: 14px;
+        height: 16px;
+        line-height: 16px;
+        margin-bottom: 18px;
+        position: relative;
+        margin-top: 15px;
+    }
+
+    .linep:before {
+        content: '';
+        width: 4px;
+        height: 16px;
+        background: #00aeff;
+        border-radius: 2px;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    ::-webkit-scrollbar {
+        width: 9px;
+        height: 9px
+    }
+
+    ::-webkit-scrollbar-track-piece {
+        background-color: #ebebeb;
+        -webkit-border-radius: 4px
+    }
+
+    ::-webkit-scrollbar-thumb:vertical {
+        height: 32px;
+        background-color: #ccc;
+        -webkit-border-radius: 4px
+    }
+
+    ::-webkit-scrollbar-thumb:horizontal {
+        width: 32px;
+        background-color: #ccc;
+        -webkit-border-radius: 4px
+    }
+</style>
+<div class="layui-container">
+    <div class="layui-row">
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>{$api_info.title}</legend>
+        </fieldset>
+        <blockquote class="layui-elem-quote">{$api_info.desc}</blockquote>
+    </div>
+    <div style="margin-top: 30px;">
+        <p class="simpleTable">
+            <span class="layui-badge layui-bg-black">接口地址：</span>
+            <span class="url" data-clipboard-text="{:getDomain()}/api/{$api_info.ext}">{:getDomain()}/api/{$api_info.ext}</span>
+        </p>
+        <p class="simpleTable">
+            <span class="layui-badge">请求方式：</span>
+            <span class="url" data-clipboard-text="{$api_info.type}">{$api_info.type}</span>
+        </p>
+        <p class="simpleTable">
+            <span class="layui-badge">请求示例：</span>
+            <span class="url" data-clipboard-text="{:getDomain()}/api/{$api_info.ext}?sign=">{:getDomain()}/api/{$api_info.ext}?sign=</span>
+        </p>
+        <p class="linep">请求参数说明：</p>
+        <table class="layui-table" lay-size="sm">
+            <thead>
+            <tr>
+                <th>名称</th>
+                <th>类型</th>
+                <th>必填</th>
+                <th>默认值</th>
+                <th>示例</th>
+                <th>说明</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $request as $v}
+            <tr>
+                <td>{$v.field}</td>
+                <td>{$v.type}</td>
+                <td>{$v.is_must?'是':'否'}</td>
+                <td>{$v.default}</td>
+                <td>{$v.demo}</td>
+                <td>{$v.desc}</td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+        <p class="linep">返回参数说明：</p>
+        <table class="layui-table" lay-size="sm">
+            <thead>
+            <tr>
+                <th>名称</th>
+                <th>示例</th>
+                <th>说明</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $result as $v}
+                <tr>
+                    <td>{$v.field}</td>
+                    <td>{$v.demo}</td>
+                    <td>{$v.desc}</td>
+                </tr>
+            {/foreach}
+            </tbody>
+        </table>
+        <p class="linep">成功返回示例：</p>
+        <pre class="layui-code">{$api_info.result_success_demo}</pre>
+        <p class="linep">失败返回示例：</p>
+        <pre class="layui-code">{$api_info.result_error_demo}</pre>
+    </div>
+</div>
+<script src="__JS__/clipboard.min.js"></script>
+<script>
+    layui.use('code', function () { //加载code模块
+        layui.code(); //引用code方法
+    });
+    var clipboard = new ClipboardJS('.url');
+    clipboard.on('success', function (e) {
+        layer.msg('复制成功!');
+    });
+    clipboard.on('error', function (e) {
+        layer.msg('复制成功!');
+    });
+</script>
+
+
+<style>
+    #footer h4 {
+        margin-bottom: 15px;
+    }
+</style>
+<footer id="footer" class="footer hidden-print">
+    <div class="container">
+        <div class="row">
+            <div class="footer-about col-md-5 col-sm-12" id="about">
+                <h4>关于 {:config('sys.site_title')}</h4>
+                <p>
+                    {:config('sys.index_about')}
+                </p>
+            </div>
+
+            <div class="footer-links col-md-3 col-sm-12">
+                <h4>友情链接</h4>
+                <ul class="list-unstyled list-inline">
+                    <li><a href="https://blog.abug.cc/" target="_blank">夜公子</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="copy-right">
+        <span>© 2021-{:date('Y')}</span><a href="https://beian.miit.gov.cn/" target="_blank">{:config('sys.icp_str')}</a><span></span>
+    </div>
+    {:config('sys.cnzz')}
+</footer>
+</body>
+
+</html>

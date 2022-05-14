@@ -1,0 +1,82 @@
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>{:config('sys.site_title')}</title>
+    <meta name="description" content="{:config('sys.site_description')}">
+    <meta name="keywords" content="{:config('sys.site_keyword')}">
+    <meta name="author" content="夜公子">
+    <link href="__CSS__/site.min.css" rel="stylesheet">
+    <link href="__CSS__/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="__LAY__/css/layui.css">
+    <link href="__CSS__/oneui.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <script src="__JS__/jquery.min.js"></script>
+    <script src="__LAY__/layui.js"></script>
+</head>
+<body>
+<header class="site-header">
+    <nav class="nav_jsxs">
+        <a href="../">首页</a>
+        <a target="_blank" href="https://blog.abug.cc">博客</a>
+        <a target="_blank" href="{:url('user/index/index')}">登录</a>
+    </nav>
+    <div class="box-text">
+        <h1>{:config('sys.site_title')}</h1>
+        <p>稳定、快速、免费的 API 接口服务<br><span class="package-amount">共收录了 {:count($data)} 个接口</span>
+        </p>
+    </div>
+</header>
+<section class="content content-boxed">
+    <p class="p-jsxs">拒绝流量劫持，全面使用 HTTPS！</p>
+    <div class="row row_jsxs" id="listApi">
+        {foreach $data as $v}
+            <div class="col-sm-4">
+                <a target="_blank" class="block block-link-hover2 ribbon ribbon-modern ribbon-success" href="{:url('/index/doc')}/{$v.id}">
+                    <div class="ribbon-box font-w600">调用：{$v.now_count}</div>
+                    <div class="block-content">
+                        <div class="h4 push-5">{$v.title}</div>
+                        <p class="text-muted">{$v.desc}</p>
+                    </div>
+                </a>
+            </div>
+        {/foreach}
+    </div>
+</section>
+
+<style>
+    #footer h4 {
+        margin-bottom: 15px;
+    }
+</style>
+<footer id="footer" class="footer hidden-print">
+    <div class="container">
+        <div class="row">
+            <div class="footer-about col-md-5 col-sm-12" id="about">
+                <h4>关于 {:config('sys.site_title')}</h4>
+                <p>
+                    {:html_out(config('sys.index_about'))}
+                </p>
+                <p>
+                    自上线以来已经提供数 {:array_sum(array_column($data,'now_count'))} 次 API 接口服务。
+                </p>
+            </div>
+
+            <div class="footer-links col-md-3 col-sm-12">
+                <h4>友情链接</h4>
+                <ul class="list-unstyled list-inline">
+                    <li><a href="https://blog.abug.cc/" target="_blank">夜公子</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="copy-right">
+        <span>© 2021-{:date('Y')}</span><a href="https://beian.miit.gov.cn/" target="_blank">{:config('sys.icp_str')}</a><span>夜公子</span>
+    </div>
+    <div>{:config('sys.cnzz')}</div>
+</footer>
+</body>
+
+</html>

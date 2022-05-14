@@ -1,0 +1,114 @@
+{extend name='public/_container'}
+{block name="content"}
+<div class="row">
+    <form class="form-horizontal" id="doSubmit">
+        <div class="col-sm-12">
+            <div class="ibox ">
+                <div class="ibox-content">
+                    <!-- form start -->
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">月份：</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" id="num" onchange="InfoDlg.changeMonth(this.value)">
+                                <option value="1" selected>1 个月</option>
+                                <option value="2">2 个月</option>
+                                <option value="3">3 个月</option>
+                                <option value="4">4 个月</option>
+                                <option value="5">5 个月</option>
+                                <option value="6">6 个月</option>
+                                <option value="7">7 个月</option>
+                                <option value="8">8 个月</option>
+                                <option value="9">9 个月</option>
+                                <option value="10">10 个月</option>
+                                <option value="11">11 个月</option>
+                                <option value="12">12 个月</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">单价：</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" value="{$api.price * 1}" readonly id="price">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">支付方式：</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" id="pay_type" onchange="InfoDlg.changeMonth(this.value)">
+                                <option value="wxpay" selected>微信支付</option>
+                                <option value="alipay">支付宝</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- form end -->
+                    <div class="hr-line-dashed"></div>
+                    <div class="row btn-group-m-t">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-primary" onclick="InfoDlg.submit()" id="ensure">
+                                <i class="fa fa-check"></i>&nbsp;开始支付
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="InfoDlg.close()" id="cancel" style="margin-left: 20px">
+                                <i class="fa fa-remove"></i>&nbsp;取消关闭
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+<script type="text/javascript">
+
+    var price = '{$api.price}';
+
+    var InfoDlg = {
+        formData: {},
+    }
+
+    InfoDlg.collectData = function (){
+        this.set('price').set('num').set('pay_type');
+    }
+
+    InfoDlg.Validate = function (){
+        return true;
+    }
+
+    InfoDlg.changeMonth = function(val){
+        $('#price').val((price * val).toFixed(2))
+    }
+
+    InfoDlg.submit = function () {
+        this.collectData();
+        if(!this.Validate()){
+            return;
+        }
+
+        const ajax = new $ax("{:url('recharge')}", function (res) {
+            if (res.status === 200) {
+                com.success(res.msg, 1000);
+                if(res.data !== ''){
+                    top.parent.frames.location.href = res.data;
+                }
+                window.parent.TableList.table.refresh();
+                InfoDlg.close();
+            } else {
+                com.error(res.msg + "！", 1000);
+            }
+        });
+        ajax.set('id','{$info.id}')
+        ajax.set('project_id','{$project_id}')
+        ajax.set(this.formData);
+        ajax.start();
+    };
+</script>
+<script src="__JS__/common/formCom.js" charset="utf-8"></script>
+{/block}
