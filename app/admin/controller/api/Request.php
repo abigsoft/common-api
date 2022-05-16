@@ -88,7 +88,7 @@ class Request extends Base
                 'status'=>0,
             ], 'param', null);
             //field 不能为 sign 和 type
-            if($data['field'] == 'sign' || $data['field'] == 'type'){
+            if($data['field'] == 'sign' || $data['field'] == 'apitype'){
                 throw new ParamException('此字段为默认关键字，禁止使用');
             }
             if ($id) {

@@ -57,11 +57,11 @@ class Api extends BaseController
         }
     }
 
-    function index($type)
+    function index($apitype)
     {
-        $type = strtolower($type);
+        $apitype = strtolower($apitype);
         //判断接口信息  开始
-        $api_info = ApiModel::where('ext', $type)
+        $api_info = ApiModel::where('ext', $apitype)
             ->field('id,ext,type,title,status')
             ->find();
         if (!$api_info) {
@@ -116,7 +116,7 @@ class Api extends BaseController
             LogService::ban($this->api_id, $this->member_id, $this->project_id, $this->ip, $this->_data, '用户已被禁用');
             throw new ParamException('用户已被禁用');
         }
-        $function = '\\app\\api\\service\\' . $type . '\\ApiService';
+        $function = '\\app\\api\\service\\' . $apitype . '\\ApiService';
         //取配置参数
         $config_array = [];
         $config_array_data = ApiConfigModel::where('type', 'a')
@@ -150,8 +150,19 @@ class Api extends BaseController
                 $request = $this->request->only($request_field);
                 break;
         }
-        $request_field = ApiRequestModel::where('api_id', $this->api_id)->column('default,desc,is_must', 'field');
+        $request_field = ApiRequestModel::where('api_id', $this->api_id)->column('default,desc,is_must,type', 'field');
         foreach ($request_field as $k=>$v){
+            switch ($v['type']){
+                case 'Integer':
+                    $request[$k] = intval($request[$k]);
+                    break;
+                case 'Number':
+                    $request[$k] = floatval($request[$k]);
+                    break;
+                default:
+                    $request[$k] = is_string($request[$k]) ? $request[$k] : '';
+                    break;
+            }
             if($v['is_must'] == 1 && $request[$k] == ''){
                 throw new ParamException($v['desc'] . '参数不能为空');
             }

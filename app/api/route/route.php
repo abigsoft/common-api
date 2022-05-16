@@ -9,5 +9,5 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 use think\facade\Route;
-Route::rule(':type','api/index');
+Route::rule(':apitype','api/index');
 
